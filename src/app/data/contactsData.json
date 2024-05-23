@@ -1,0 +1,54 @@
+[
+  {
+    "firstname": "Elisabeth",
+    "lastname": "Kowarc",
+    "phone": [
+      "0676.53 10 424"
+    ],
+    "email": [
+      "ek@kowarc-consulting.at"
+    ]
+  },
+  {
+    "firstname": "MICHAEL",
+    "lastname": "HOFER",
+    "phone": [
+      "+43 (0)1 512 12 20",
+      "+43 (0)664 5 41 27 97"
+    ],
+    "email": [
+      "iwcboutiquewien@bucherer.at",
+      "cboutiquewien@bucherer.at"
+    ]
+  },
+  {
+    "firstname": "Sabine",
+    "lastname": "Stiller",
+    "phone": [
+      "+43 664 884 32 950"
+    ],
+    "email": [
+      "sabine.stiller@cool-IT.at"
+    ]
+  },
+  {
+    "firstname": "Lukas",
+    "lastname": "Fischer",
+    "phone": [
+      "+43 676 852 488 828"
+    ],
+    "email": [
+      "lukas_fischer@annotation.at"
+    ]
+  },
+  {
+    "firstname": "Michael",
+    "lastname": "Steinm\u00f6tzger",
+    "phone": [
+      "+4318902220-234"
+    ],
+    "email": [
+      "michael.steinmoetzger@phactum.at"
+    ]
+  }
+]

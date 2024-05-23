@@ -1,0 +1,11 @@
+
+look into this:
+const firebaseConfig = {
+apiKey: "AIzaSyA9lQKFmhaPZvohnNie9Et0yyaqWfkaNxs",
+authDomain: "ocr4businesscard.firebaseapp.com",
+projectId: "ocr4businesscard",
+storageBucket: "ocr4businesscard.appspot.com",
+messagingSenderId: "337964720665",
+appId: "1:337964720665:web:2590faa5eb0c69d4d40088",
+measurementId: "G-FCDFT7T3SX"
+};
