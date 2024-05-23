@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+look into this:
+const firebaseConfig = {
+apiKey: "AIzaSyA9lQKFmhaPZvohnNie9Et0yyaqWfkaNxs",
+authDomain: "ocr4businesscard.firebaseapp.com",
+projectId: "ocr4businesscard",
+storageBucket: "ocr4businesscard.appspot.com",
+messagingSenderId: "337964720665",
+appId: "1:337964720665:web:2590faa5eb0c69d4d40088",
+measurementId: "G-FCDFT7T3SX"
+};
