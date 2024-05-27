@@ -1,10 +1,9 @@
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, Timestamp, getDoc , getDocs} from 'firebase/firestore';
 import { db, app } from '@/lib/firebase';
-import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 
-
- async function firebaseFunctions(userId, data) {
+async function saveOcrDataToFirebase(userId, data) {
+    console.log("UserID", userId, "data", data)
     const contactsCollectionRef = collection(db, "users", userId, "contacts");
      console.log(data)
     try {
@@ -25,12 +24,15 @@ import 'firebaseui/dist/firebaseui.css'
 
 
 async function getAllContacts(userId) {
+    console.log("UserID", userId);
+    
     const contactsCollectionRef = collection(db, "users", userId, "contacts");
 
     try {
         const querySnapshot = await getDocs(contactsCollectionRef);
         const contacts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         console.log("Contacts retrieved from Firestore:", contacts);
+    
         return contacts;
     } catch (error) {
         console.error("Error retrieving contacts from Firestore:", error);
@@ -38,34 +40,21 @@ async function getAllContacts(userId) {
     }
 }
 
-function getAuthentication(){
+async function getAllUserContacts(userId) {
+    const contactsCollectionRef = collection(db, "users", userId, "contacts");
 
-    var uiConfig = {
-        signInSuccessUrl: '<url-to-redirect-to-on-success>',
-        signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-            firebase.auth.GithubAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
-        ],
-        // tosUrl and privacyPolicyUrl accept either url string or a callback
-        // function.
-        // Terms of service url/callback.
-        tosUrl: './',
-        // Privacy policy url/callback.
-        privacyPolicyUrl: function() {
-            window.location.assign('./accounts');
-        }
-    };
-
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-
-
+    try {
+        const querySnapshot = await getDocs(contactsCollectionRef);
+        const contacts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        console.log("Contacts retrieved:", contacts);
+        return contacts;
+    } catch (error) {
+        console.error("Error retrieving contacts:", error);
+        return [];
+    }
 }
-export default {getAllContacts, firebaseFunctions}
+
+export { saveOcrDataToFirebase, getAllUserContacts};
 
 // users.oq6e7XMHmZ5liQafLjf8.contacts
 
@@ -82,3 +71,6 @@ export default {getAllContacts, firebaseFunctions}
 //     'phone': ['+43 (1) 8903900 901', '+43 664 4528350'],
 //     'email': ['michael.sattler@omninet.at']
 // }]
+
+
+getAllUserContacts("oq6e7XMHmZ5liQafLjf8");

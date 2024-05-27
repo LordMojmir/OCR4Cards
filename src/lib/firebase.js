@@ -1,10 +1,9 @@
-// "use server"
+"use client"
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-
-console.log(process.env.NEXT_PUBLIC_MY_ENV_VARIABLE)
+import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,10 +16,12 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
-console.log("Firebase Config:", firebaseConfig); // Debugging line
+// console.log("Firebase Config:", firebaseConfig); // Debugging line
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { app, db };
+
+export { app, db , auth};
