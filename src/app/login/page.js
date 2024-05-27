@@ -40,7 +40,7 @@ export default function LoginAndRegistrationPage() {
             const res = await registerUser(email, password);
             if (res){
                 router.push('/');
-                updateUUID(res.uid)
+                setUUID(res.uid)
                 console.log(res.uid)
             }
 

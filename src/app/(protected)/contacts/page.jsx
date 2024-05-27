@@ -66,14 +66,7 @@ function ContactPageFirestore() {
 
     return (
         <div className="container mx-auto text-center m-5">
-            <h1 className="text-xl">User Information</h1>
-            <p><strong>Company:</strong> {userData.company}</p>
-            <p><strong>Created At:</strong> {formatDate(userData.createdAt)}</p>
-            <p><strong>First Name:</strong> {userData.firstname}</p>
-            <p><strong>Last Name:</strong> {userData.lastname}</p>
-            <p><strong>Emails:</strong> {userData.mails.join(', ')}</p>
-            <p><strong>Phones:</strong> {userData.phones.join(', ')}</p>
-
+            
             <h2 className="text-xl mt-5">Contacts</h2>
             {contacts.length > 0 ? (
                 contacts.map((contact, index) => (
