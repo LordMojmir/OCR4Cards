@@ -3,7 +3,6 @@
 import React, {useState, useCallback} from "react";
 import {useDropzone} from "react-dropzone";
 import axios from "axios";
-import contactsData from '../data/contactsData.json';
 import SingleContactView from "../components/SingelContactCard";
 import {saveOcrDataToFirebase} from "@/app/components/firebaseFunctions";
 import SpinnerElement from "@/app/components/SpinnerElement";
@@ -14,6 +13,8 @@ export default function Home() {
     const [preview, setPreview] = useState(null);
     const [result, setResult] = useState(null);
     const [backendRunning, setBackendState] = useState("notSubmitted")
+
+
     const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0];
         setImage(file);
@@ -79,13 +80,13 @@ export default function Home() {
             <button
                 onClick={handleSubmit}
                 className=" disabled:opacity-50 bg-blue-950 text-white px-5 py-2 w-1/2 rounded"
-                disabled={backendRunning == "submitted"}
+                disabled={backendRunning === "submitted"}
             >
                 <div className="flex h-full items-center gap-4 justify-between">
                 Submit
-                {/*{backendRunning === "submitted" && (*/}
+                {backendRunning === "submitted" && (
                     <SpinnerElement/>
-                {/*)}*/}
+                )}
                 </div>
             </button>
             {result && (
