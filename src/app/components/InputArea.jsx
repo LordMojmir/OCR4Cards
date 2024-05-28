@@ -1,24 +1,26 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import React, {useState, useCallback} from "react";
+import {useDropzone} from "react-dropzone";
 import axios from "axios";
 import contactsData from '../data/contactsData.json';
 import SingleContactView from "../components/SingelContactCard";
 import {saveOcrDataToFirebase} from "@/app/components/firebaseFunctions";
+import SpinnerElement from "@/app/components/SpinnerElement";
+
 
 export default function Home() {
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
     const [result, setResult] = useState(null);
-
+    const [backendRunning, setBackendState] = useState("notSubmitted")
     const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0];
         setImage(file);
         setPreview(URL.createObjectURL(file));
     }, []);
 
-    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    const {getRootProps, getInputProps} = useDropzone({onDrop});
 
     const handleSubmit = async () => {
         if (!image) return;
@@ -32,6 +34,7 @@ export default function Home() {
         const formData = new FormData();
         formData.append("image", image);
         console.log("Before try block");
+        setBackendState("submitted")
         try {
             const response = await axios.post("http://localhost:5000/upload", formData, {
                 headers: {
@@ -50,6 +53,9 @@ export default function Home() {
             }
         } catch (error) {
             console.error("Error uploading image:", error);
+        } finally {
+            setBackendState("finished")
+
         }
 
     };
@@ -60,20 +66,27 @@ export default function Home() {
 
             <div
                 {...getRootProps()}
-                className="border-dashed border-2 border-gray-400 p-5 my-5 cursor-pointer"
+                className="border-dashed border-2 border-gray-400 p-5 my-5 mx-3 cursor-pointer"
             >
                 <input {...getInputProps()} />
                 {preview ? (
-                    <img src={preview} alt="Preview" className="mx-auto" />
+                    <img src={preview} alt="Preview" className="mx-auto"/>
                 ) : (
                     <p>Drop an image here, or click to select one</p>
                 )}
             </div>
+
             <button
                 onClick={handleSubmit}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className=" disabled:opacity-50 bg-blue-950 text-white px-5 py-2 w-1/2 rounded"
+                disabled={backendRunning == "submitted"}
             >
+                <div className="flex h-full items-center gap-4 justify-between">
                 Submit
+                {/*{backendRunning === "submitted" && (*/}
+                    <SpinnerElement/>
+                {/*)}*/}
+                </div>
             </button>
             {result && (
                 <div className="mt-5 bg-black m-2">
@@ -81,7 +94,7 @@ export default function Home() {
                     {result.length > 0 && (
                         <div className="bg-gray-100 p-4 text-left text-black mt-4 rounded shadow-md">
                             {result.map((contact, index) => (
-                                <SingleContactView key={index} contact={contact} />
+                                <SingleContactView key={index} contact={contact}/>
                             ))}
                         </div>
                     )}
