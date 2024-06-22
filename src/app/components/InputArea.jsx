@@ -59,7 +59,7 @@ export default function Home() {
 
             <div
                 {...getRootProps()}
-                className="border-dashed border-4 border-gray-400 p-6 my-6 text-center cursor-pointer rounded-lg hover:bg-gray-900"
+                className="border-dashed border-4 border-gray-500 p-6 my-6 text-center cursor-pointer rounded-lg hover:bg-gray-800"
             >
                 <input {...getInputProps()} />
                 {preview ? (
@@ -89,7 +89,7 @@ export default function Home() {
 
             <button
                 onClick={handleSubmit}
-                className="w-full bg-gray-800 text-white font-semibold py-3 rounded hover:bg-blue-900 transition-all ease-in-out duration-300 disabled:opacity-50"
+                className="w-full bg-gray-500 text-white font-semibold py-3 rounded hover:bg-gray-800 transition-all ease-in-out duration-300 disabled:opacity-50"
                 disabled={backendRunning === "submitted"}
             >
                 <div className="flex items-center justify-between w-full px-4">
@@ -101,17 +101,22 @@ export default function Home() {
             </button>
 
             {result && (
-                <div className="mt-6 p-4 bg-white rounded shadow">
-                    <h2 className="text-lg font-bold mb-4">Processed Result:</h2>
+                <div className="mt-6 p-4 bg-gray-500 rounded-lg shadow-lg">
+                    <h2 className="text-xl font-bold mb-4 text-white">Processed Result:</h2>
                     {result.length > 0 && (
-                        <div className="bg-gray-50 p-4 text-black mt-4 rounded">
+                        <div className="space-y-4">
                             {result.map((contact, index) => (
-                                <SingleContactView key={index} contact={contact}/>
+                                <SingleContactView key={index} contact={{
+                                    ...contact,
+                                    email: [contact.email], // Assuming email and phone are originally strings
+                                    phone: [contact.phone]  // Wrap them as arrays to use .join(", ")
+                                }}/>
                             ))}
                         </div>
                     )}
                 </div>
             )}
+
         </div>
     );
 }
